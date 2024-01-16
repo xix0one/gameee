@@ -46,14 +46,14 @@ namespace gameee
         {
             List<string> animalEmoji = new List<string>()
             {
-                "🧸","🧸",
-                "🦝","🦝",
-                "🦄","🦄",
-                "🐔","🐔",
-                "🐭","🐭",
-                "🐷","🐷",
-                "🐮","🐮",
-                "🐻","🐻"
+                "\U0001F9F8","\U0001F9F8",
+                "\U0001F99D","\U0001F99D",
+                "\U0001F984","\U0001F984",
+                "\U0001F414","\U0001F414",
+                "\U0001F42D","\U0001F42D",
+                "\U0001F437","\U0001F437",
+                "\U0001F42E","\U0001F42E",
+                "\U0001F43B","\U0001F43B"
             };
 
             Random random = new Random();
@@ -100,7 +100,7 @@ namespace gameee
 
         private void timeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (MathesFound == 8) 
+            if (MathesFound == 8)
             {
                 SetUpGame();
             }
