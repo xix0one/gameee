@@ -5,7 +5,7 @@ using System.Windows.Input;
 namespace gameee
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml 
     /// </summary>
 
     using System.Windows.Threading;
