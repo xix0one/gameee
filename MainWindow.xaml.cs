@@ -1,13 +1,6 @@
-﻿using System.Text;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace gameee
 {
@@ -21,6 +14,7 @@ namespace gameee
         DispatcherTimer timer = new DispatcherTimer();
         int tenthOfSecondsElapsed;
         int MathesFound;
+        float best = 0.0f;
 
         public MainWindow()
         {
@@ -38,7 +32,17 @@ namespace gameee
             if (MathesFound == 8)
             {
                 timer.Stop();
-                timeTextBlock.Text = timeTextBlock.Text + " - end game?";
+                if (best == 0.0f)
+                {
+                    best = tenthOfSecondsElapsed / 10F;
+                    BestTime.Text = $"Best: {best}s";
+                }
+                else if (best > tenthOfSecondsElapsed / 10F)
+                {
+                    best = tenthOfSecondsElapsed / 10F;
+                    BestTime.Text = $"Best: {best}s";
+                }
+                timeTextBlock.Text = timeTextBlock.Text + " - again?";
             }
         }
 
@@ -60,15 +64,15 @@ namespace gameee
 
             foreach (TextBlock textBlock in mainGrid.Children.OfType<TextBlock>())
             {
-                if (textBlock.Name != "timeTextBlock")
+                if (textBlock.Name != "timeTextBlock" && textBlock.Name != "BestTime")
                 {
+                    textBlock.Visibility = Visibility.Visible;
                     int index = random.Next(animalEmoji.Count);
                     string nextEmoji = animalEmoji[index];
                     textBlock.Text = nextEmoji;
                     animalEmoji.RemoveAt(index);
                 }
             }
-
             timer.Start();
             tenthOfSecondsElapsed = 0;
             MathesFound = 0;
