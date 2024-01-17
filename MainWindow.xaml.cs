@@ -22,22 +22,24 @@ namespace gameee
 
             timer.Interval = TimeSpan.FromSeconds(.1);
             timer.Tick += Timer_Tick;
+            tenthOfSecondsElapsed = 200;
             SetUpGame();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
-            tenthOfSecondsElapsed++;
+            tenthOfSecondsElapsed--;
             timeTextBlock.Text = (tenthOfSecondsElapsed / 10F).ToString("0.0s");
-            if (MathesFound == 8)
+            if (tenthOfSecondsElapsed == 0)
             {
                 timer.Stop();
-                if (best == 0.0f)
-                {
-                    best = tenthOfSecondsElapsed / 10F;
-                    BestTime.Text = $"Best: {best}s";
-                }
-                else if (best > tenthOfSecondsElapsed / 10F)
+                MathesFound = -1;
+                timeTextBlock.Text = timeTextBlock.Text + " - again?";
+            }
+            if (MathesFound == 10)
+            {
+                timer.Stop();
+                if (best == 0.0f || best < tenthOfSecondsElapsed / 10F)
                 {
                     best = tenthOfSecondsElapsed / 10F;
                     BestTime.Text = $"Best: {best}s";
@@ -57,7 +59,9 @@ namespace gameee
                 "\U0001F42D","\U0001F42D",
                 "\U0001F437","\U0001F437",
                 "\U0001F42E","\U0001F42E",
-                "\U0001F43B","\U0001F43B"
+                "\U0001F43B","\U0001F43B",
+                "\U0001F648","\U0001F648",
+                "\U0001F47B","\U0001F47B"
             };
 
             Random random = new Random();
@@ -74,7 +78,7 @@ namespace gameee
                 }
             }
             timer.Start();
-            tenthOfSecondsElapsed = 0;
+            tenthOfSecondsElapsed = 200;
             MathesFound = 0;
         }
 
@@ -100,14 +104,12 @@ namespace gameee
                 lastTextBlockClicked.Visibility = Visibility.Visible;
                 findingMatch = false;
             }
+
         }
 
         private void timeTextBlock_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (MathesFound == 8)
-            {
-                SetUpGame();
-            }
+            SetUpGame();
         }
     }
 }
